@@ -1,0 +1,33 @@
+{
+  "name": "ayd1_p3_backend",
+  "version": "1.0.0",
+  "description": "Backend practica 3 del laboratorio del curso de Analisis y Diseño de Sistemas 1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AyD1G15/AyD1_P3_Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AyD1G15/AyD1_P3_Backend/issues"
+  },
+  "homepage": "https://github.com/AyD1G15/AyD1_P3_Backend#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9"
+  },
+  "devDependencies": {
+    "jest": "^26.5.3",
+    "nodemon": "^2.0.5",
+    "supertest": "^5.0.0"
+  }
+}
