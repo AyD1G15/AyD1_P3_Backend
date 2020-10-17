@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const host = 'cluster0.1ojwk.mongodb.net';
-const username = '2learn';
+const username = 'practica3';
 const password = 'Nq5La6e3KZhZ8jTO';
-const database = '2learn'
+const database = 'practica3'
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
 
