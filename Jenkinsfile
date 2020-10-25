@@ -8,15 +8,13 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh '''npm install
-'''
+        sh 'npm install'
       }
     }
 
     stage('unit testing') {
       steps {
-        sh '''npm t
-'''
+        sh 'npm t'
       }
     }
 
