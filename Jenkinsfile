@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'alpine'
+      image 'node:10-stretch'
     }
 
   }
@@ -20,11 +20,8 @@ pipeline {
       }
     }
 
-    stage('bdd') {
-      steps {
-        sh 'npm run bdd'
-      }
-    }
-
+  }
+  environment {
+    Home = '.'
   }
 }
