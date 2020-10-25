@@ -1,7 +1,7 @@
 const supertest = require('supertest');
 const app = require('../app');
 const request = supertest(app);
-const { eliminarUsuario } = require('../controllers/pago.controller');
+const { eliminarPago } = require('../controllers/pago.controller');
 
 var usuario;
 
@@ -341,13 +341,17 @@ describe("Pruebas de registro de pago", () => {
 
     it("Se valida que se registro correctamente el pago", async done => {
         var res = await request.post("/pago")
-        .field("username", "test")
-        .field("numeroTarjeta", "2342342355324234")
-        .field("nombreTarjeta", "Tarjeta Prueba")
-        .field("fechaExpira", "0923")
-        .field("codigoVerificacion", "1456")
-        .field("monto", "700")
-        .field("moneda", "Q");
+            .send({
+                "username": "testp3",
+                "numeroTarjeta": "2342342355324234",
+                "nombreTarjeta": "Tarjeta Prueba",
+                "fechaExpira": "0923",
+                "codigoVerificacion": "1456",
+                "monto": "700",
+                "moneda": "Q"
+            });
+            
+
         pago = res.body._id;
 
         expect(res.status).toEqual(200);
@@ -363,5 +367,5 @@ describe("Pruebas de registro de pago", () => {
 });
 
 afterAll(async () => {
-    await eliminarUsuario(pago);
+    await eliminarPago(pago);
 });

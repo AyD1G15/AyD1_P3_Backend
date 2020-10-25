@@ -43,6 +43,20 @@ module.exports = {
 
     },
 
+    eliminarPago: async id => {
+        return await PagoModel.findByIdAndDelete(id)
+            .then(pago => {
+                if (pago) {
+                    return true;
+                }
+                return false;
+
+            })
+            .catch(err => {
+                return false;
+            })
+    },
+
     obtenerPagos: (req, res) => {
         PagoModel.find().then(pagos => {
 
@@ -55,4 +69,6 @@ module.exports = {
                 });
             });
     }
+
+
 }
