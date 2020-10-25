@@ -18,12 +18,6 @@ pipeline {
       }
     }
 
-    stage('bdd') {
-      steps {
-        sh 'npm run bdd'
-      }
-    }
-
   }
   environment {
     Home = '.'
