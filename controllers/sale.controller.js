@@ -111,9 +111,10 @@ module.exports = {
                                         status: true,
                                         userId: userId,
                                         creditCard: creditResult._id,
-                                        exchangeRate: exchangeRate.total,
-                                        items: items,
-                                        total: total
+                                        exchangeRate: exchangeRate[0].total,
+                                        items: [...items],
+                                        total: total,
+                                        date: new Date()
                                     }).then(sale => {
                                         inventoryItems = inventoryItems.map(inventoryItem => ({
                                             ...inventoryItem,
@@ -121,7 +122,7 @@ module.exports = {
                                         }));
 
                                         UserInventory.insertMany(inventoryItems).then(inventoryItems => {
-                                            
+
                                         }).catch(err => {
                                             console.log(err);
                                         });
@@ -144,7 +145,7 @@ module.exports = {
                                             userId: userId,
                                             creditCard: creditCard._id,
                                             exchangeRate: exchangeRate,
-                                            items: items,
+                                            items: [...items],
                                             total: total
                                         }).then(sale => {
                                             inventoryItems = inventoryItems.map(inventoryItem => ({
@@ -153,7 +154,7 @@ module.exports = {
                                             }));
 
                                             UserInventory.insertMany(inventoryItems).then(inventoryItems => {
-                                                
+
                                             }).catch(err => {
                                                 console.log(err);
                                             });
@@ -211,5 +212,18 @@ module.exports = {
                 ]
             });
         });
+    },
+    history: (req, res) => {
+        const userId = req.params.id;
+
+        Sale.find({
+            userId: userId
+        }).then(sales => {
+            if (sales) {
+                return res.send(sales);
+            }   
+        }).catch(err => {
+            console.log(err);
+        })
     }
 }

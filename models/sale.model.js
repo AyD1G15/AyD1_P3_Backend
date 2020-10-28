@@ -9,11 +9,13 @@ const SaleSchema = mongoose.Schema({
     exchangeRate: Number,
     items: [
         {
-            currentId: Number,
-            currentName: String
+            plataform: String,
+            availability: String,
+            quantity: Number
         }
     ],
-    total: Number
+    total: Number,
+    date: Date
 });
 
 module.exports = mongoose.model("Sale", SaleSchema);
