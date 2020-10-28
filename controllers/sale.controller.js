@@ -121,7 +121,7 @@ module.exports = {
                                         }));
 
                                         UserInventory.insertMany(inventoryItems).then(inventoryItems => {
-                                            console.log(inventoryItems);
+                                            
                                         }).catch(err => {
                                             console.log(err);
                                         });
@@ -153,7 +153,7 @@ module.exports = {
                                             }));
 
                                             UserInventory.insertMany(inventoryItems).then(inventoryItems => {
-                                                console.log(inventoryItems);
+                                                
                                             }).catch(err => {
                                                 console.log(err);
                                             });
