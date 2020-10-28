@@ -3,7 +3,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const UserInventorySchema = mongoose.Schema({
     userId: ObjectId,
-    giftcardId: String,
+    // giftcardId: String,
     plataformId: String,
     plataformName: String,
     availability: String,

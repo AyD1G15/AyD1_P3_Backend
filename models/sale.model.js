@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 const SaleSchema = mongoose.Schema({
-    number: Number,
+    // number: Number,
     status: Boolean,
     userId: ObjectId,
     creditCard: ObjectId,

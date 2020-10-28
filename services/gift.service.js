@@ -22,5 +22,16 @@ module.exports = {
                 console.log(err);
                 return null;
             });
+    },
+    getExchangeRate: async () => {
+        return axios.get('https://my-json-server.typicode.com/CoffeePaw/AyD1API/TasaCambio')
+            .then(response => {
+                if (response.data) return response.data;
+                return null;
+            })
+            .catch(err => {
+                console.log(err);
+                return null;
+            });
     }
 }

@@ -1,12 +1,5 @@
 const { getCargs, getValues } = require('../services/gift.service');
-
-function arrayValuesToDictionary(arr) {
-    var result = {};
-    for (var i = 0; i < arr.length; i++) {
-        result[arr[i].id] = arr[i].total;
-    }
-    return result;
-}
+const { populateValues } = require('../utils/card.util');
 
 module.exports = {
     getItems: (req, res) => {
@@ -14,21 +7,9 @@ module.exports = {
             .then(cards => {
                 if (cards) {
                     getValues()
-                        .then(values => {
-                            const valuesAux = arrayValuesToDictionary(values);
+                        .then(values => { 
                             var items = cards.filter(card => card.active)
-                            var items = items.map(item => {
-                                var availability = item.availability.map(id => {
-                                    return {
-                                        id: id,
-                                        total: valuesAux[id]
-                                    }
-                                })
-                                return {
-                                    ...item,
-                                    availability
-                                }
-                            })
+                            items = populateValues(items, values);
                             res.send(items);
                         })
                         .catch(err => {
