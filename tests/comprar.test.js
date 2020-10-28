@@ -98,7 +98,7 @@ describe('Pruebas a la api de compra', () => {
                 }
             ]
         });
-        console.log(res);
+        
         expect(res.status).toBe(200);
         expect(res.body).toHaveProperty('_id');
         expect(res.body).toHaveProperty('message');

@@ -215,15 +215,30 @@ module.exports = {
     },
     history: (req, res) => {
         const userId = req.params.id;
+        User.findById(userId).then(user => {
+            if (user) {
+                Sale.find({
+                    userId: userId
+                }).then(sales => {
+                    if (sales) {
+                        return res.send(sales);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+            } else {
+                return res.status(404).send({
+                    error: true,
+                    messages: [
+                        "No existe usuario con id " + userId
+                    ]
+                })
+            }
 
-        Sale.find({
-            userId: userId
-        }).then(sales => {
-            if (sales) {
-                return res.send(sales);
-            }   
         }).catch(err => {
             console.log(err);
-        })
+        });
+
+
     }
 }
