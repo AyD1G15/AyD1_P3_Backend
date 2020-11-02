@@ -23,7 +23,8 @@ const UsuarioSchema = mongoose.Schema({
     },
     dpi: String,
     edad: Number,
-    fechaNacimiento: Date
+    fechaNacimiento: Date,
+    admin: Boolean
 });
 
 module.exports = mongoose.model("Usuario", UsuarioSchema);

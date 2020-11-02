@@ -240,5 +240,41 @@ module.exports = {
         });
 
 
+    },
+    allHistories: (req, res) => {
+        const userId = req.params.id;
+        User.findById(userId).then(user => {
+            if (user) {
+                if (user.admin) {
+                    Sale.find({})
+                    .populate('userId', "username nombre apellido")
+                    .then(sales => {
+                        if (sales) {
+                            return res.send(sales);
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                } else {
+                    return res.status(400).send({
+                        error: true,
+                        messages: [
+                            "El usuario con id " + userId + " no es administrador"
+                        ]
+                    })
+                }
+
+            } else {
+                return res.status(404).send({
+                    error: true,
+                    messages: [
+                        "No existe usuario con id " + userId
+                    ]
+                })
+            }
+
+        }).catch(err => {
+            console.log(err);
+        });
     }
 }

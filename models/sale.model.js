@@ -4,7 +4,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const SaleSchema = mongoose.Schema({
     // number: Number,
     status: Boolean,
-    userId: ObjectId,
+    userId: { type : ObjectId, ref: "Usuario"},
     creditCard: ObjectId,
     exchangeRate: Number,
     items: [
