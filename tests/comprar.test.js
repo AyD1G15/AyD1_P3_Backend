@@ -1,7 +1,84 @@
 const supertest = require('supertest');
 const app = require('../app');
+const { getItems } = require('../controllers/catalog.controller');
 const request = supertest(app);
 
+jest.mock('../services/gift.service')
+
+const giftServices = require('../services/gift.service');
+
+giftServices.getExchangeRate.mockResolvedValue(
+    new Promise((resolve, reject) => {
+        resolve([{
+            total: "7"
+        }])
+    })
+);
+
+giftServices.getCargs.mockResolvedValue(
+    new Promise((resolve, reject) => {
+        resolve([
+            {
+                "id": "1",
+                "name": "Google Play",
+                "image": "https://media.karousell.com/media/photos/products/2020/5/21/rm50_goggle_play_gift_card_mal_1590040469_c1100b5a_progressive.jpg",
+                "chargeRate": 1,
+                "active": true,
+                "availability": [
+                    1,
+                    2,
+                    3,
+                    4
+                ]
+            },
+            {
+                "id": "2",
+                "name": "PlayStation",
+                "image": "https://www.allkeyshop.com/blog/wp-content/uploads/PlayStationNetworkGiftCard.jpg",
+                "chargeRate": 0.25,
+                "active": true,
+                "availability": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ])
+    })
+);
+
+giftServices.getValues.mockResolvedValue(
+    new Promise((resolve, reject) => {
+        resolve([
+            {
+                "id": "1",
+                "total": "10"
+            },
+            {
+                "id": "2",
+                "total": "25"
+            },
+            {
+                "id": "3",
+                "total": "50"
+            },
+            {
+                "id": "4",
+                "total": "100"
+            }
+        ])
+    })
+)
+
+// giftServices.getExchangeRate.mockImplementation(() => new Promise((resolve, reject) => {
+//     resolve([{total: "7"}]);
+// }));
+
+// giftServices.getExchangeRate = jest.fn().mockReturnValue([
+//     {
+//         "total": "7"
+//     }
+// ]);
 
 beforeAll(async () => {
     const mongoose = require('mongoose');
@@ -82,23 +159,18 @@ describe('Pruebas a la api de compra', () => {
             },
             "items": [
                 {
-                    "plataform": "5",
-                    "availability": "2",
-                    "quantity": 2
-                },
-                {
-                    "plataform": "5",
+                    "plataform": "1",
                     "availability": "3",
                     "quantity": 2
                 },
                 {
-                    "plataform": "5",
+                    "plataform": "2",
                     "availability": "1",
                     "quantity": 2
                 }
             ]
         });
-        
+
         expect(res.status).toBe(200);
         expect(res.body).toHaveProperty('_id');
         expect(res.body).toHaveProperty('message');
