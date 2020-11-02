@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const arrayValuesToDictionary = (arr) => {
     var result = {};
     for (var i = 0; i < arr.length; i++) {
@@ -30,4 +32,8 @@ module.exports.arrayToObject = (arr) => {
     }
     
     return result;
+}
+
+module.exports.getHexId = () => {
+    return new mongoose.Types.ObjectId(8);
 }

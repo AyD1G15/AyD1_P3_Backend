@@ -5,6 +5,7 @@ const UserInventory = require('../models/userInventory.model');
 
 const { getCargs, getValues, getExchangeRate } = require('../services/gift.service');
 const { populateValues, arrayToObject } = require('../utils/card.util');
+const { maskNumber } = require('../utils/creditCard.util');
 
 module.exports = {
     buy: (req, res) => {
@@ -21,10 +22,16 @@ module.exports = {
             error = true;
             messages.push('Los datos de tarjeta de credito son obligatorios')
         } else {
-            if (!creditCard.number) {
+            if (creditCard.number === undefined || creditCard.number === "") {
                 error = true;
                 messages.push(`Falta el numero de la tajera de credito`);
+            } else {
+                if (creditCard.number.length < 16) {
+                    error = true;
+                    messages.push(`Es numero de la tajera de credito esta incompleto`);
+                }
             }
+
             if (!creditCard.name) {
                 error = true;
                 messages.push(`Falta el nombre de la tajera de credito`);
@@ -135,8 +142,10 @@ module.exports = {
                                     })
                                 } else {
                                     //Crear tarjeta
+                                    const maskedNumber = maskNumber(creditCard.number);
                                     CreditCard.create({
-                                        ...creditCard
+                                        ...creditCard,
+                                        maskedNumber: maskedNumber.error ? maskedNumber.maskedNumber : ""
                                     }).then(creditCard => {
                                         //realizar 
                                         //realizar compra
@@ -144,7 +153,7 @@ module.exports = {
                                             status: true,
                                             userId: userId,
                                             creditCard: creditCard._id,
-                                            exchangeRate: exchangeRate,
+                                            exchangeRate: exchangeRate[0].total,
                                             items: [...items],
                                             total: total
                                         }).then(sale => {
@@ -247,14 +256,14 @@ module.exports = {
             if (user) {
                 if (user.admin) {
                     Sale.find({})
-                    .populate('userId', "username nombre apellido")
-                    .then(sales => {
-                        if (sales) {
-                            return res.send(sales);
-                        }
-                    }).catch(err => {
-                        console.log(err);
-                    })
+                        .populate('userId', "username nombre apellido")
+                        .then(sales => {
+                            if (sales) {
+                                return res.send(sales);
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                        })
                 } else {
                     return res.status(400).send({
                         error: true,

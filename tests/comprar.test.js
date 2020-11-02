@@ -128,7 +128,6 @@ describe('Pruebas a la api de compra', () => {
         var res = await request.post('/buy').send({
             userId: "5f94f8552097aa0da3febd52",
             creditCard: {
-
                 name: "Test User",
                 expirationDate: "10/22",
                 code: "123"
@@ -141,7 +140,7 @@ describe('Pruebas a la api de compra', () => {
                 }
             ]
         });
-
+        
         expect(res.status).toBe(400);
         expect(res.body).toHaveProperty('error');
         expect(res.body).toHaveProperty('messages');
