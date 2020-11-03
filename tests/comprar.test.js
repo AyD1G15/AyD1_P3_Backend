@@ -7,7 +7,7 @@ jest.mock('../services/gift.service')
 
 const giftServices = require('../services/gift.service');
 
-giftServices.getTasas.mockResolvedValue(
+giftServices.getExchangeRate.mockResolvedValue(
     new Promise((resolve, reject) => {
         resolve([{
             total: "7"

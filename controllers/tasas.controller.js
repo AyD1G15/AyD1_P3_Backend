@@ -4,7 +4,7 @@ const { getCargs, getValues, getTasas } = require('../services/gift.service');
 
 module.exports = {
     getItems: (req, res) => {
-        getTasas()
+        getExchangeRate()
             .then(tasas => {
                 if (tasas) {
 

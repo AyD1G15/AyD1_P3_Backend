@@ -23,7 +23,7 @@ module.exports = {
                 return null;
             });
     },
-    getTasas: async () => {
+    getExchangeRate: async () => {
         return axios.get('https://my-json-server.typicode.com/CoffeePaw/AyD1API/TasaCambio')
             .then(response => {
                 if (response.data) return response.data;
