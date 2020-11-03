@@ -280,7 +280,7 @@ describe("Pruebas de registro de usuario", () => {
             "dpi":"1231343546546456456",
             "edad":"25",
             "fechaNacimiento":"2020-03-14",
-            "username":"testutp3r"
+            "username":"testp3r"
         });
         usuario = res.body._id;
 

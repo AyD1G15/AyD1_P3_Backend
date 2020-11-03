@@ -21,8 +21,7 @@ module.exports = (app) => {
     RegistroController.crearUsuario);
     app.get('/registro',RegistroController.obtenerUsuarios);
 
-    app.post('/login',[check('correo', 'El correo electronico es obligatorio').exists().isLength({ min: 1 }),
-    check('correo', 'El formato de correo electronico no es valido').isEmail(),
+    app.post('/login',[check('correo', 'El correo o nombre de usuario es obligatorio').exists().isLength({ min: 1 }),
     check('password', 'La contraseña es obligatoria').exists().isLength({ min: 1 })    
     ],RegistroController.LoginUsuario);   
 }

@@ -21,7 +21,7 @@ module.exports = {
             const { edad } = req.body;
             const { dpi } = req.body;
             const { fechaNacimiento } = req.body;
-            
+
 
             UsuarioModel.find({ correo: correo }, function (err, result) {
                 console.log(err);
@@ -34,7 +34,7 @@ module.exports = {
 
                     UsuarioModel.create({ username, nombre, apellido, correo, password, dpi, edad, fechaNacimiento })
                         .then(usuario => {
-                         
+
                             if (usuario) {
                                 return res.send({
                                     mensaje: 'Usuario registrado correctamente',
@@ -81,7 +81,7 @@ module.exports = {
                 return false;
             })
     },
-    
+
     LoginUsuario: (req, res) => {
 
         const errors = validationResult(req);
@@ -105,12 +105,36 @@ module.exports = {
                             return res.status(404).send({
                                 mensaje: 'El password ingresado no es correcto'
                             });
-                            
+
                         }
+                    } else {
+                        UsuarioModel.find({ username: correo })
+                            .then(usuario => {
+                                if (usuario.length > 0) {
+                                    if (usuario[0].password == password) {
+                                        return res.send(usuario);
+                                    }
+                                    else {
+                                        return res.status(404).send({
+                                            mensaje: 'El password ingresado no es correcto'
+                                        });
+
+                                    }
+                                }
+                                return res.status(404).send({
+                                    mensaje: 'No se encuentra registrado el usuario ' + correo
+                                });
+                            })
+                            .catch(err => {
+                                return res.status(500).send({
+                                    mensaje: 'Error en el proceso de login'
+                                })
+                            })
+
                     }
-                    return res.status(404).send({
-                        mensaje: 'No se encuentra registrado el correo ' + correo
-                    });
+                    // return res.status(404).send({
+                    //     mensaje: 'No se encuentra registrado el correo ' + correo
+                    // });
                 })
                 .catch(err => {
                     return res.status(500).send({
